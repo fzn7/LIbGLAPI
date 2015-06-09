@@ -8,14 +8,14 @@
 //	in accordance with the terms of the license agreement accompanying it.
 //
 // ================================================================================
-package com.adobe.utils
+package com.adobe.utils_gls3d
 {
 	// ===========================================================================
 	//	Imports
 	// ---------------------------------------------------------------------------
 	//import flash.display3D.*;
-	import com.adobe.utils.macro.AGALPreAssembler;
-	import com.adobe.utils.macro.AGALVar;
+	import com.adobe.utils_gls3d.macro.AGALPreAssembler;
+	import com.adobe.utils_gls3d.macro.AGALVar;
 	
 	import flash.display.Stage;
 	import flash.utils.*;
@@ -711,7 +711,7 @@ internal class Macro
 		trace( "Macro: " + name + " [" + mangledName + "]" );
 		trace( "  args: " + args );
 		trace( "<==" );
-		var s:String = com.adobe.utils.AGALMacroAssembler.joinTokens( body );
+		var s:String = com.adobe.utils_gls3d.AGALMacroAssembler.joinTokens( body );
 		trace( s );
 		trace( "==>" );
 	}

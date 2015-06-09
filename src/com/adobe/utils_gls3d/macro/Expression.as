@@ -1,6 +1,6 @@
-package com.adobe.utils.macro
+package com.adobe.utils_gls3d.macro
 {
-	import com.adobe.utils.macro.VM;
+	import com.adobe.utils_gls3d.macro.VM;
 	
 	public class Expression
 	{

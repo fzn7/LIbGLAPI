@@ -1,6 +1,6 @@
-package com.adobe.utils.macro
+package com.adobe.utils_gls3d.macro
 {
-	internal class VariableExpression extends com.adobe.utils.macro.Expression
+	internal class VariableExpression extends com.adobe.utils_gls3d.macro.Expression
 	{
 		public function VariableExpression( n:String )
 		{

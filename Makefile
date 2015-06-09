@@ -39,19 +39,19 @@ compile:
 	-import $(call nativepath,$(FLASCC)/usr/lib/BinaryData.abc) \
 	-import $(call nativepath,$(FLASCC)/usr/lib/C_Run.abc) \
 	-import $(call nativepath,$(FLASCC)/usr/lib/CModule.abc) \
-	-in src/com/adobe/utils/AGALMiniAssembler.as \
-	-in src/com/adobe/utils/AGALMacroAssembler.as \
-	-in src/com/adobe/utils/FractalGeometryGenerator.as \
-	-in src/com/adobe/utils/PerspectiveMatrix3D.as \
-	-in src/com/adobe/utils/macro/AGALPreAssembler.as \
-	-in src/com/adobe/utils/macro/AGALVar.as \
-	-in src/com/adobe/utils/macro/Expression.as \
-	-in src/com/adobe/utils/macro/BinaryExpression.as \
-	-in src/com/adobe/utils/macro/ExpressionParser.as \
-	-in src/com/adobe/utils/macro/NumberExpression.as \
-	-in src/com/adobe/utils/macro/UnaryExpression.as \
-	-in src/com/adobe/utils/macro/VariableExpression.as \
-	-in src/com/adobe/utils/macro/VM.as \
+	-in src/com/adobe/utils_gls3d/AGALMiniAssembler.as \
+	-in src/com/adobe/utils_gls3d/AGALMacroAssembler.as \
+	-in src/com/adobe/utils_gls3d/FractalGeometryGenerator.as \
+	-in src/com/adobe/utils_gls3d/PerspectiveMatrix3D.as \
+	-in src/com/adobe/utils_gls3d/macro/AGALPreAssembler.as \
+	-in src/com/adobe/utils_gls3d/macro/AGALVar.as \
+	-in src/com/adobe/utils_gls3d/macro/Expression.as \
+	-in src/com/adobe/utils_gls3d/macro/BinaryExpression.as \
+	-in src/com/adobe/utils_gls3d/macro/ExpressionParser.as \
+	-in src/com/adobe/utils_gls3d/macro/NumberExpression.as \
+	-in src/com/adobe/utils_gls3d/macro/UnaryExpression.as \
+	-in src/com/adobe/utils_gls3d/macro/VariableExpression.as \
+	-in src/com/adobe/utils_gls3d/macro/VM.as \
 	libGL.as
 	@mv libGL.abc install/usr/lib/
 	
@@ -70,7 +70,7 @@ compile:
 	@$(FLASCC)/usr/bin/gcc -fno-exceptions -O4 -c LibGL_wrapper.c
 	@$(FLASCC)/usr/bin/g++ -Werror -Wno-write-strings -Wno-trigraphs libGLAPI.abc -lGL -lglut LibGL_wrapper.o libGL.a libGLmain.c -emit-swc=com.adumentum -o LibGLAPI.swc
 	
-	#@rm -f libGL.o 
+	@rm -f libGL.o
 
 install: check
 	@cp -r install/usr/include/ $(FLASCC)/usr/include

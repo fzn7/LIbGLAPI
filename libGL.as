@@ -44,8 +44,8 @@ package GLS3D
     import flash.trace.Trace;
     import flash.utils.*;
 
-    import com.adobe.utils.*;
-    import com.adobe.utils.macro.*;
+    import com.adobe.utils_gls3d.*;
+    import com.adobe.utils_gls3d.macro.*;
     import com.adobe.flascc.CModule; 
 
     // Linker trickery
