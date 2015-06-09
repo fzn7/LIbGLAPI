@@ -58,16 +58,17 @@ compile:
 	@echo "-> Generate SWIG wrappers around the functions in the library"
 	"$(FLASCC)/usr/bin/swig" -as3 -module LibGLAPI -outdir . -includeall -ignoremissing -o LibGL_wrapper.c LibGLAPI.i
 	
-	@echo "-> Compile the SWIG wrapper to ABC"
-	$(AS3COMPILERARGS) -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) libGLAPI.as
+	#@echo "-> Compile the SWIG wrapper to ABC"
+	#$(AS3COMPILERARGS) -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) libGLAPI.as
 	# rename the output so the compiler doesn't accidentally use both this .as file along with the .abc file we just produced
-	@mv libGLAPI.as libGLAPI.as3
+	#@mv libGLAPI.as libGLAPI.as3
 	
-	@echo "-> Compile the library into a SWC"
+	#@echo "-> Compile the library into a SWC"
 	@$(FLASCC)/usr/bin/g++ -fno-exceptions -O4 -c -Iinstall/usr/include/ libGL.cpp
-	@$(FLASCC)/usr/bin/ar crus install/usr/lib/libGL.a install/usr/lib/libGL.abc libGL.o
-
-	@$(FLASCC)/usr/bin/g++ -fno-exceptions -O4 libGLAPI.abc -lGL -lglut LibGL_wrapper.c
+	@$(FLASCC)/usr/bin/ar crus libGL.a install/usr/lib/libGL.abc libGL.o
+	
+	@$(FLASCC)/usr/bin/gcc -fno-exceptions -O4 -c LibGL_wrapper.c
+	@$(FLASCC)/usr/bin/g++ -Werror -Wno-write-strings -Wno-trigraphs libGLAPI.abc -lGL -lglut LibGL_wrapper.o libGL.a libGLmain.c -emit-swc=com.adumentum -o LibGLAPI.swc
 	
 	#@rm -f libGL.o 
 
