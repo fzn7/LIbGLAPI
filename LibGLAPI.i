@@ -1,0 +1,111 @@
+#ifdef SWIG
+%{
+#include <stdint.h>   
+#include "install/usr/include/GL/gl.h"
+%}
+
+// This directive tells swig to pull in type information from its library
+// for the types declared in stdint.h.
+%include "stdint.i"
+
+%ignore gluQuadricDrawStyle;
+%ignore glMultiTexCoord3iARB;
+
+%ignore gluTessVertex;
+%ignore gluQuadricOrientation;
+%ignore glMultiTexCoord4ivARB;
+%ignore gluPwlCurve;
+%ignore glMultiTexCoord3dARB;
+%ignore gluPartialDisk;
+%ignore glMultiTexCoord2fARB;
+%ignore glClientActiveTextureARB;
+%ignore glMultiTexCoord2sARB;
+%ignore gluNurbsCurve;
+%ignore gluDeleteQuadric;
+%ignore glMultiTexCoord2svARB;
+%ignore glMultiTexCoord2fvARB;
+%ignore gluQuadricNormals;
+%ignore glMultiTexCoord4dvARB;
+%ignore glActiveTextureARB;
+%ignore gluTessEndPolygon;
+%ignore gluBuild3DMipmapLevels;
+%ignore gluTessEndContour;
+%ignore glMultiTexCoord2iARB;
+%ignore glMultiTexCoord1ivARB;
+%ignore gluQuadricCallback;
+%ignore gluEndTrim;
+%ignore gluTessBeginPolygon;
+%ignore gluTessBeginContour;
+%ignore gluBeginTrim;
+%ignore glMultiTexCoord2dARB;
+%ignore glMultiTexCoord1fARB;
+%ignore glMultiTexCoord1sARB;
+%ignore gluEndSurface;
+%ignore gluBuild1DMipmaps;
+%ignore gluNewNurbsRenderer;
+%ignore gluPickMatrix;
+%ignore glMultiTexCoord1dvARB;
+%ignore gluNurbsCallbackData;
+%ignore gluProject;
+%ignore gluBuild3DMipmaps;
+%ignore gluLoadSamplingMatrices;
+%ignore gluGetTessProperty;
+%ignore gluBuild2DMipmapLevels;
+%ignore glMultiTexCoord3svARB;
+%ignore gluSphere;
+%ignore glMultiTexCoord1iARB;
+%ignore gluNewQuadric;
+%ignore glMultiTexCoord3fvARB;
+%ignore glMultiTexCoord2ivARB;
+%ignore gluScaleImage;
+%ignore gluBeginSurface;
+%ignore gluUnProject;
+%ignore glMultiTexCoord1dARB;
+%ignore gluTessNormal;
+%ignore gluGetNurbsProperty;
+%ignore gluNurbsSurface;
+%ignore glGetProgramRegisterfvMESA;
+%ignore gluDeleteNurbsRenderer;
+%ignore gluNextContour;
+%ignore glMultiTexCoord4fARB;
+%ignore gluBuild1DMipmapLevels;
+%ignore gluEndCurve;
+%ignore glMultiTexCoord4sARB;
+%ignore gluEndPolygon;
+%ignore glMultiTexCoord2dvARB;
+%ignore glProgramCallbackMESA;
+%ignore glMultiTexCoord4svARB;
+%ignore gluGetString;
+%ignore gluNurbsCallbackDataEXT;
+%ignore gluTessCallback;
+%ignore glMultiTexCoord4fvARB;
+%ignore gluCheckExtension;
+%ignore gluNurbsCallback;
+%ignore glMultiTexCoord4iARB;
+%ignore glMultiTexCoord3ivARB;
+%ignore gluNewTess;
+%ignore gluBeginPolygon;
+%ignore gluErrorString;
+%ignore gluCylinder;
+%ignore glBlendEquationSeparateATI;
+%ignore glMultiTexCoord4dARB;
+%ignore gluDeleteTess;
+%ignore glMultiTexCoord3fARB;
+%ignore gluTessProperty;
+%ignore glMultiTexCoord3sARB;
+%ignore gluBuild2DMipmaps;
+%ignore gluNurbsProperty;
+%ignore gluQuadricTexture;
+%ignore glMultiTexCoord1svARB;
+%ignore gluUnProject4;
+%ignore glMultiTexCoord1fvARB;
+%ignore gluBeginCurve;
+%ignore glMultiTexCoord3dvARB;
+%ignore gluDisk;
+%ignore gluLookAt;
+%ignore gluOrtho2D;
+%ignore gluPerspective;
+
+%include "install/usr/include/GL/gl.h"
+
+#endif

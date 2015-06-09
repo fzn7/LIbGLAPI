@@ -55,11 +55,21 @@ compile:
 	libGL.as
 	@mv libGL.abc install/usr/lib/
 	
-	@echo "Compiling libGL.cpp"
+	@echo "-> Generate SWIG wrappers around the functions in the library"
+	"$(FLASCC)/usr/bin/swig" -as3 -module LibGLAPI -outdir . -includeall -ignoremissing -o LibGL_wrapper.c LibGLAPI.i
+	
+	@echo "-> Compile the SWIG wrapper to ABC"
+	$(AS3COMPILERARGS) -import $(call nativepath,$(FLASCC)/usr/lib/builtin.abc) -import $(call nativepath,$(FLASCC)/usr/lib/playerglobal.abc) libGLAPI.as
+	# rename the output so the compiler doesn't accidentally use both this .as file along with the .abc file we just produced
+	@mv libGLAPI.as libGLAPI.as3
+	
+	@echo "-> Compile the library into a SWC"
 	@$(FLASCC)/usr/bin/g++ -fno-exceptions -O4 -c -Iinstall/usr/include/ libGL.cpp
-	@$(FLASCC)/usr/bin/ar crus install/usr/lib/libGL.a install/usr/lib/libGL.abc libGL.o 
+	@$(FLASCC)/usr/bin/ar crus install/usr/lib/libGL.a install/usr/lib/libGL.abc libGL.o
 
-	@rm -f libGL.o 
+	@$(FLASCC)/usr/bin/g++ -fno-exceptions -O4 libGLAPI.abc -lGL -lglut LibGL_wrapper.c
+	
+	#@rm -f libGL.o 
 
 install: check
 	@cp -r install/usr/include/ $(FLASCC)/usr/include
