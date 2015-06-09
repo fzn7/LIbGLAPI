@@ -1,30 +1,96 @@
-OpenGL For Stage3D
+OpenGL For Stage3D for AS3
 ==================
 
-This project provides an experimental implementation of the OpenGL API for use in the Flash Player. Behind the scenes all of the OpenGL APIs are implemented ontop of the Flash Player's GPU accelerated Stage3D rendering API. The implementation is intended to be used by existing C/C++ code compiled with flascc to target the Flash Player.
+This project is an OpenGL wrapper swc for use in AS3 projects
 
-- More information about flascc: http://gaming.adobe.com/technologies/flascc
-- More information about Stage3D: http://gaming.adobe.com/
+Example:
+==================
 
-Demos
-=====
+1. Please put LibGLAPI.swc in your libs folder
+2. Write class GLS3DTest.as with following content
 
-- Neverball: (http://neverball.org/) is currently the showcase application for this project as it renders well and has good performance
-- Quake2: renders almost perfectly, but due to its use of old-school immediate mode OpenGL it doesn't map very well onto Stage3D so the performance isn't great at this time (Might be a good test case for VBO support if there are patches to the Q2 code to support them).
-- Quake3: renders correctly if lightmaps are disabled as they require multi-texturing to work correctly. Performance is better than Quake2 due to the use of vertex arrays)
-- cube2: (http://sauerbraten.org/) Not yet rendering correctly as the engine requires multi-texturing at the very least.
+package {
+	import GLS3D.GLAPI
 
+	import flash.display.Sprite
+	import flash.display.StageAlign
+	import flash.display.StageQuality
+	import flash.display.StageScaleMode
+	import flash.display3D.Context3D
+	import flash.display3D.Context3DProfile
+	import flash.display3D.Context3DRenderMode
+	import flash.events.ErrorEvent
+	import flash.events.Event
 
-TODO
-====
+	[SWF(width="600", height="400", frameRate="60", backgroundColor="#000000")]
+	public class GLS3DTest extends Sprite {
+		public var context3D:Context3D;
 
-The project should be considered experimental at this point and still has many features that need to be implemented. In descending priority order I would say that the next things that need to be done are:
+		public function GLS3DTest() {
+			if (stage) {
+				init();
+			}
+			else {
+				addEventListener(Event.ADDED_TO_STAGE, init);
+			}
+		}
 
-- implement multitexturing.
-- implement support for VBOs.
-- integrate the glsl2agal project so we can support GLSL.
-- migrate more of libGL.as into the C code.
+		// called once Flash is ready
+		private function init(e:Event = null):void {
+			removeEventListener(Event.ADDED_TO_STAGE, init);
+			stage.quality = StageQuality.LOW;
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			stage.addEventListener(Event.RESIZE, onResizeEvent);
+			trace("Init Stage3D...");
 
+			stage.stage3Ds[0].addEventListener(Event.CONTEXT3D_CREATE, onContext3DCreate);
+			stage.stage3Ds[0].addEventListener(ErrorEvent.ERROR, errorHandler);
+			stage.stage3Ds[0].requestContext3D(Context3DRenderMode.AUTO, Context3DProfile.STANDARD);
+			trace("Stage3D requested...");
+		}
+
+		private function onContext3DCreate(e:Event):void {
+			trace("Stage3D context created! Init sprite engine...");
+			context3D = stage.stage3Ds[0].context3D;
+			context3D.enableErrorChecking = true;
+			context3D.configureBackBuffer(this.stage.stageWidth, this.stage.stageHeight, 0);
+
+			GLAPI.init(context3D, {send: function (s:String) {
+				trace(s);
+			}}, stage);
+
+			addEventListener(Event.ENTER_FRAME, render)
+		}
+
+		private function render(event:Event):void {
+			GLAPI.instance.context.clear();
+
+			LibGLAPI.glLoadIdentity();
+			LibGLAPI.glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+			LibGLAPI.glColor3f(mouseX / stage.stageWidth, 1.0, 0);
+			LibGLAPI.glBegin(LibGLAPI.GL_POLYGON);
+			LibGLAPI.glVertex3f(0.25, 0.25, 0.0);
+			LibGLAPI.glVertex3f(0.75, 0.25, 0.0);
+			LibGLAPI.glVertex3f(0.75, 0.75, 0.0);
+			LibGLAPI.glVertex3f(0.25, 0.75, 0.0);
+			LibGLAPI.glEnd();
+			LibGLAPI.glFlush();
+
+			GLAPI.instance.context.present();
+		}
+
+		private function errorHandler(e:ErrorEvent):void {
+			trace("Error while setting up Stage3D: " + e.errorID + " - " + e.text);
+		}
+
+		protected function onResizeEvent(event:Event):void {
+			trace("resize event...");
+		}
+	}
+}
+
+3. Compile it with the latest FlexSDk and enjoy
 
 License
 =======

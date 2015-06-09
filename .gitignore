@@ -12,3 +12,7 @@
 *.a
 
 .DS_Store
+LibGL_wrapper.c
+install/usr/lib/libGL.abc
+libGLAPI.abc
+libGLAPI.as3
